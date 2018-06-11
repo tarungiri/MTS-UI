@@ -1,0 +1,60 @@
+﻿<section class="panel panel-default">
+    <header>
+        <h1>{{pageTitle}}</h1>
+    </header>
+    <br />
+    <!-- Filter the Products   -->
+    <article class="panel-body">
+        <div class="row">
+            <div class="col-md-2">Filter by:</div>
+            <div class="col-md-4">
+                <input type="text" [(ngModel)]="listFilter" />
+            </div>
+            <div class="col-md-6 ">
+                <button type="button" [routerLink]="['Add']" class="btn btn-primary">Add Medicine</button>
+            </div>
+        </div>
+        <div class="row" *ngIf="listFilter">
+            <br />
+            <div class="col-md-6">
+                <h3>Filtered by: {{listFilter}} </h3>
+            </div>
+        </div>
+        <br />
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Medicine</th>
+                        <th>Brand</th>
+                        <th>Price</th>
+                        <th>Quantity</th>
+                        <th>Expired on(mm/dd/yyyy)</th>
+                    </tr>
+                </thead>
+                <tbody *ngIf="medicines && medicines.length">
+                    <tr *ngFor="let medicine of medicines | medicineFilter:listFilter" [ngStyle]="{'backgroundColor':  CalculateExpiryDays(medicine.ExpiryDate) < 30 ? 'red' : medicine.Quantity < 10 ? 'yellow' : none }">
+
+                        <td>
+                            <a [routerLink]="[medicine.MedicineId]">
+                                {{medicine.MedicineName}}
+                            </a>
+                        </td>
+                        <td>{{ medicine.Brand | lowercase }}</td>
+                        <td>{{ medicine.Price | currency:"USD":true:"1.2-2"}}</td>
+                        <td>{{ medicine.Quantity }}</td>
+                        <td>{{ medicine.ExpiryDate | date:'dd/MM/yyyy'}}</td>
+
+                    </tr>
+                </tbody>
+                <tbody *ngIf="(medicines | medicineFilter: listFilter).length === 0">
+                    <tr>
+                        <td colspan="5" style="text-align: left">
+                            <h6>No Data Found.</h6>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </article>
+</section>

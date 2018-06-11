@@ -1,0 +1,26 @@
+<div>
+    <h1>{{medicine.MedicineName}}</h1>
+</div>
+<div>
+    <p>
+        <strong>Brand</strong> : {{medicine.Brand}}</p>
+</div>
+<div>
+    <p>
+        <strong>Total Quantity</strong> : {{medicine.Quantity}}</p>
+</div>
+<div>
+    <p>
+        <strong>Price</strong> : {{medicine.Price | currency:"USD":true:"1.2-2"}}</p>
+</div>
+<div>
+    <p>
+        <strong>Expiry Date</strong> : {{medicine.ExpiryDate}}</p>
+</div>
+<div>
+    <p>
+        <strong>Notes</strong> : {{medicine.Notes}}</p>
+</div>
+<div>
+    <button type="button" [routerLink]="['/medicines']" class="btn btn-primary">Go to Medicine List</button>
+</div>
